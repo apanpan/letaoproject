@@ -1,0 +1,1489 @@
+Index: public/m/product.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- public/m/product.html	(revision 51d7c8fcfd963cde6230168934c7a998a9caa57e)
++++ public/m/product.html	(date 1554535946161)
+@@ -11,88 +11,7 @@
+     <link rel="stylesheet" href="css/product.css"/>
+ </head>
+ <body>
+-<div class="lt_container">
+-    <header class="lt_topBar">
+-        <a class="btn_left" href="javascript:history.back();"><span class="mui-icon mui-icon-arrowleft"></span></a>
+-        <a class="btn_right" href="javascript:;"><span class="mui-icon mui-icon-reload"></span></a>
+-        <h3>商品详情</h3>
+-    </header>
+-    <div class="lt_content">
+-        <div class="lt_wrapper">
+-            <div class="mui-scroll-wrapper">
+-                <div class="mui-scroll">
+-                    <div class="loading"><span class="mui-icon mui-icon-spinner"></span></div>
+-                </div>
+-            </div>
+-        </div>
+-    </div>
+-    <div class="lt_trade">
+-        <a href="user/cart.html" class="mui-btn mui-btn-link">去购物车</a>
+-        <div class="mui-pull-right">
+-            <a href="javascript:;" class="mui-btn mui-btn-danger">加入购物车</a>
+-            <a href="javascript:;" class="mui-btn mui-btn-warning">立即购买</a>
+-        </div>
+-    </div>
+-</div>
+-<script type="text/template" id="detail">
+-    <div class="mui-slider">
+-        <div class="mui-slider-group mui-slider-loop">
+-            <% if(!pic || pic.length == 0) {
+-                pic = [{'picAddr':'/m/images/none.png'}];
+-            } %>
+-            <div class="mui-slider-item mui-slider-item-duplicate">
+-                <a href="javascript:;"><img src="<%=pic[pic.length-1].picAddr%>" /></a>
+-            </div>
+-            <% for(var i = 0 ; i < pic.length ; i ++ ){ %>
+-                <div class="mui-slider-item <%=i==0?'mui-active':''%>">
+-                    <a href="javascript:;"><img src="<%=pic[i].picAddr%>" /></a>
+-                </div>
+-            <% } %>
+-            <div class="mui-slider-item mui-slider-item-duplicate">
+-                <a href="javascript:;"><img src="<%=pic[0].picAddr%>" /></a>
+-            </div>
+-        </div>
+-        <div class="mui-slider-indicator">
+-            <% for(var i = 0 ; i < pic.length ; i ++ ){ %>
+-            <div class="mui-indicator <%=i==0?'mui-active':''%>"></div>
+-            <% } %>
+-        </div>
+-    </div>
+-    <!--名称-->
+-    <div class="lt_item">
+-        <strong class="mui-ellipsis-2"><%=proName%></strong>
+-    </div>
+-    <!--价格-->
+-    <div class="lt_item">
+-        价格：
+-        <span class="now">&yen;<%=price%></span> <del class="old">&yen;<%=oldPrice%></del>
+-    </div>
+-    <!--尺码-->
+-    <div class="lt_item">
+-        尺码：
+-        <%
+-            var arr = (size||'40-50').split('-');
+-            var start = arr[0],end = arr[1];
+-            for( var i = start ; i <= end ; i ++ ){
+-        %>
+-            <span class="size"><%=i%></span>
+-        <% } %>
+-    </div>
+-    <!--数量-->
+-    <div class="lt_item">
+-        数量：
+-        <div class="mui-numbox" data-numbox-min="1" data-numbox-max="<%=num%>">
+-            <button class="mui-btn mui-btn-numbox-minus" type="button">-</button>
+-            <input class="mui-input-numbox" type="number" value="1">
+-            <button class="mui-btn mui-btn-numbox-plus" type="button">+</button>
+-        </div>
+-        <span class="num">剩余数量：<%=num%> 双</span>
+-    </div>
+-    <!--描述-->
+-    <div class="lt_item">
+-        详情：<%=proDesc%></span>
+-    </div>
+-</script>
++
+ <script src="assets/mui/js/mui.js"></script>
+ <script src="assets/zepto/zepto.min.js"></script>
+ <script src="assets/artTemplate/template-native.js"></script>
+Index: public/m/searchList.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- public/m/searchList.html	(revision 51d7c8fcfd963cde6230168934c7a998a9caa57e)
++++ public/m/searchList.html	(date 1554535964492)
+@@ -11,64 +11,7 @@
+     <link rel="stylesheet" href="css/searchList.css"/>
+ </head>
+ <body>
+-<div class="lt_container">
+-    <header class="lt_topBar">
+-        <a class="btn_left" href="javascript:history.back();"><span class="mui-icon mui-icon-arrowleft"></span></a>
+-        <h3>商品列表</h3>
+-    </header>
+-    <div class="lt_content">
+-        <div class="lt_wrapper">
+-            <div class="mui-scroll-wrapper">
+-                <div class="mui-scroll">
+-                    <!--搜索表单-->
+-                    <div class="lt_search">
+-                        <form action="javascript:;">
+-                            <input class="search_input" type="search" placeholder="请输入搜索关键字"/>
+-                            <a class="search_btn" href="javascript:;">搜索</a>
+-                        </form>
+-                    </div>
+-                    <!--搜索排序-->
+-                    <div class="lt_order">
+-                        <a href="javascript:;">上架时间<span class="fa fa-angle-down"></span></a>
+-                        <a data-type="price" href="javascript:;">价格<span class="fa fa-angle-down"></span></a>
+-                        <a data-type="num" href="javascript:;">库存<span class="fa fa-angle-down"></span></a>
+-                        <a href="javascript:;">折扣<span class="fa fa-angle-down"></span></a>
+-                    </div>
+-                    <!--搜索列表-->
+-                    <div class="lt_product">
+-                        <div class="loading"><span class="mui-icon mui-icon-spinner"></span></div>
+-                        <!--初始页面有loading效果 加载数据之后动态渲染-->
+-                    </div>
+-                </div>
+-            </div>
+-        </div>
+-    </div>
+-    <footer class="lt_tabBar">
+-        <ul>
+-            <li><a href="index.html"><span class="fa fa-home"></span><p>首页</p></a></li>
+-            <li><a href="category.html"><span class="fa fa-bars"></span><p>分类</p></a></li>
+-            <li><a href="cart.html"><span class="fa fa-shopping-cart"></span><p>购物车</p></a></li>
+-            <li><a href="user/index.html"><span class="fa fa-user"></span><p>会员中心</p></a></li>
+-        </ul>
+-    </footer>
+-</div>
+-<script type="text/template" id="productTpl">
+-    <% for(var i = 0 ; i < data.length ; i++){ %>
+-    <% var item = data[i]; %>
+-    <a class="item" href="product.html?productId=<%=item.id%>">
+-        <%
+-            var pic = item.pic,src = '';
+-            if( pic && pic.length ){
+-                src =   pic[0].picAddr || '';
+-            }
+-        %>
+-        <img src="<%=src%>" onerror="this.src='images/none.png'" alt=""/>
+-        <span class="mui-ellipsis-2 mui-text-left"><%=item.proName%></span>
+-        <p><span>&yen;<%=item.price%></span> <span>&yen;<%=item.oldPrice%></span></p>
+-        <button class="mui-btn-blue">立即购买</button>
+-    </a>
+-    <% } %>
+-</script>
++
+ <script src="assets/mui/js/mui.js"></script>
+ <script src="assets/zepto/zepto.min.js"></script>
+ <script src="assets/artTemplate/template-native.js"></script>
+Index: public/m/js/index.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- public/m/js/index.js	(revision 51d7c8fcfd963cde6230168934c7a998a9caa57e)
++++ public/m/js/index.js	(date 1554535897455)
+@@ -1,8 +1,0 @@
+-/*��ʼ������������*/
+-mui('.mui-scroll-wrapper').scroll({
+-    indicators:false
+-});
+-/*�ֲ�ͼ�ĳ�ʼ��*/
+-mui('.mui-slider').slider({
+-    interval:4000
+-});
+Index: public/m/js/common.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- public/m/js/common.js	(revision 51d7c8fcfd963cde6230168934c7a998a9caa57e)
++++ public/m/js/common.js	(date 1554535894127)
+@@ -1,44 +1,0 @@
+-/*��װ���ߺ���*/
+-window.lt = {};
+-/*��ȡ��ַ������*/
+-lt.getUrlParams = function(){
+-    /*�õ���get��ʽ���ݵĵ�ַ�������� ?key=1&name=10*/
+-    var search = location.search;
+-    /*��Ҫ���ַ���ת���ɶ���  ���ڿ���ʹ��*/
+-    var params = {};
+-    /*����У������в���*/
+-    /*û���ʺž�û�в���*/
+-    if(search.indexOf('?') == 0){
+-        search = search.substr(1);
+-        var arr = search.split('&');
+-        for(var i = 0 ; i < arr.length ; i++){
+-            /*itemArr name=10  ----> [name,10]*/
+-            var itemArr = arr[i].split('=');
+-            params[itemArr[0]] = itemArr[1];
+-        }
+-    }
+-    return params;
+-}
+-/*��¼����  ������Ҫ��¼���� ����*/
+-lt.ajaxFilter = function(options){
+-    $.ajax({
+-        type:options.type||'get',
+-        url:options.url||location.pathname,
+-        data:options.data||{},
+-        dataType:options.dataType||'json',
+-        beforeSend:function(){
+-            options.beforeSend && options.beforeSend();
+-        },
+-        success:function(data){
+-            /* error ���  400  ����δ��¼ ȥ��¼ҳ  Я��url*/
+-            if(data.error == 400){
+-                location.href = '/m/user/login.html?returnUrl='+location.href
+-            }else{
+-                options.success && options.success(data);
+-            }
+-        },
+-        error:function(){
+-            options.error && options.error();
+-        }
+-    });
+-}
+\ No newline at end of file
+Index: public/m/js/search.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- public/m/js/search.js	(revision 51d7c8fcfd963cde6230168934c7a998a9caa57e)
++++ public/m/js/search.js	(date 1554535904305)
+@@ -1,95 +1,0 @@
+-/*初始化区域滚动组件*/
+-mui('.mui-scroll-wrapper').scroll({
+-    indicators:false
+-});
+-$(function(){
+-    /*都会和localStorage打交道   约定一个键  leTaoHistory */
+-
+-    /*1渲染列表*/
+-    /*获取*/
+-    var historyList = getHistoryData();
+-    /*渲染*/
+-    $('.lt_history').html(template('historyTpl',{list:historyList}));
+-    $('.search_input').val('');
+-
+-    /*2点击搜索*/
+-    $('.search_btn').on('tap',function(){
+-        /*获取关键字*/
+-        var key = $.trim($('.search_input').val());
+-        /*如果用户没有输入*/
+-        if(!key){
+-            /*提示*/
+-            mui.toast('请输入关键字');
+-            return false;
+-        }
+-        /*记录这一次的搜索*/
+-        var arr = getHistoryData();
+-
+-        /*1.在正常的10条记录内 正常添加*/
+-        /*2.已经10条记录了    添加一条 并且 删除最早的一条 */
+-        /*3.如果有相同记录    添加一条 并且 删除相同的一条 */
+-        /*是否有相同数据*/
+-        var isHave = false;
+-        var haveIndex;
+-        for(var i = 0 ; i < arr.length ; i ++){
+-            if(key == arr[i]){
+-                isHave = true;
+-                haveIndex = i;
+-                break;
+-            }
+-        }
+-        if(isHave){
+-            /*3.如果有相同记录*/
+-            arr.push(key);
+-            /*删除*/
+-            arr.splice(haveIndex,1);
+-        }else{
+-            if(arr.length < 10){
+-                /*1.在正常的10条*/
+-                arr.push(key);
+-            }else{
+-                /*已经10条记录*/
+-                arr.push(key);
+-                /*清除第一条*/
+-                arr.splice(0,1);
+-            }
+-        }
+-        /*存起来*/
+-        localStorage.setItem('leTaoHistory',JSON.stringify(arr));
+-        /*跳转搜索列表*/
+-        location.href = 'searchList.html?key='+key;
+-    });
+-
+-    /*3删除记录*/
+-    $('.lt_history').on('tap','.mui-icon',function(){
+-        /*1.获取索引*/
+-        var index = $(this).attr('data-index');
+-        /*2.获取数据*/
+-        var arr = getHistoryData();
+-        /*3.删除数据*/
+-        arr.splice(index,1);
+-        /*4.存储数据*/
+-        localStorage.setItem('leTaoHistory',JSON.stringify(arr));
+-        /*5.重新渲染*/
+-        $('.lt_history').html(template('historyTpl',{list:arr}));
+-    });
+-
+-    /*4清空记录*/
+-    $('.lt_history').on('tap','.fa',function(){
+-        /*清空数据*/
+-        localStorage.setItem('leTaoHistory','');
+-        /*重新渲染*/
+-        $('.lt_history').html(template('historyTpl',{list:[]}));
+-    });
+-
+-});
+-/*获取存储数据*/
+-var getHistoryData = function(){
+-    /*1.约定一个键  leTaoHistory 值存的是json格式的字符串*/
+-    /*2.通过这个键获取值 如果有就使用 如果没有默认空数组的字符串*/
+-    var str = localStorage.getItem('leTaoHistory')||'[]';
+-    /*3.转成成js数据*/
+-    var arr = JSON.parse(str);
+-    /*4.返回js可操作的数组*/
+-    return arr;
+-}
+Index: public/m/js/product.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- public/m/js/product.js	(revision 51d7c8fcfd963cde6230168934c7a998a9caa57e)
++++ public/m/js/product.js	(date 1554535900576)
+@@ -1,126 +1,0 @@
+-/*初始化区域滚动组件*/
+-mui('.mui-scroll-wrapper').scroll({
+-    indicators:false
+-});
+-
+-$(function(){
+-    /*
+-     * 初始渲染
+-     * 1.获取数据
+-     * 2.动态模版渲染
+-     * */
+-    var urlParams = lt.getUrlParams();
+-    var render = function(){
+-        /*获取id*/
+-        getProductDetailData({
+-            id:urlParams.productId
+-        },function(data){
+-            $('.mui-scroll').html(template('detail',data));
+-            /*轮播图的初始化*/
+-            mui('.mui-slider').slider({
+-                interval:4000
+-            });
+-            /*数量选择初始化*/
+-            mui('.mui-numbox').numbox();
+-        });
+-    };
+-    render();
+-
+-    /*重新加载*/
+-    $('.mui-icon-reload').on('tap',function(){
+-        $('.mui-scroll').html('<div class="loading"><span class="mui-icon mui-icon-spinner"></span></div>');
+-        render();
+-    });
+-
+-    /*尺码选择*/
+-    $('.mui-scroll').on('tap','.size',function(){
+-        var currSize = $(this);
+-        $('.size').removeClass('now');
+-        currSize.addClass('now');
+-    });
+-
+-    /*数量选择*/
+-
+-    /*
+-    加入购物车
+-    1.需要获取  数据（商品id 尺码 数量） 校验数据
+-    2.通过接口发送给后台 ajax
+-    3.成功  提示用户  添加成功  弹出一个对话框  去购物车查看
+-    4.失败  提示用户  添加失败
+-    5.防止二次提交
+-    */
+-    $('.mui-btn-danger').on('tap',function(){
+-        /*6.防重复提交*/
+-        if(window.addCarting){
+-            return false;
+-        }
+-        /*1.需要获取数据*/
+-        var data = {
+-            productId:urlParams.productId,
+-            size:$('.size.now').html(),
+-            num:$('.mui-input-numbox').val()
+-        };
+-        /*2.数据校验*/
+-        if(!data.productId){
+-            mui.toast('商品异常');
+-            return false;
+-        }
+-        if(!data.size){
+-            mui.toast('请选择尺码');
+-            return false;
+-        }
+-        if(!data.num){
+-            mui.toast('请选择数量');
+-            return false;
+-        }
+-        /*3.发送后台*/
+-        lt.ajaxFilter({
+-            type:'post',
+-            url:'/cart/addCart',
+-            data:data,
+-            dataType:'json',
+-            beforeSend:function(){
+-                window.addCarting = true;
+-            },
+-            success:function(data){
+-                /*4.成功*/
+-                if(data.success){
+-                    mui.confirm('加入购物车成功，去购物车看看？', '温馨提示', ['去看看','继续浏览'], function(e) {
+-                        if (e.index == 0) {
+-                            /*按了第一个按钮*/
+-                            location.href = 'user/cart.html';
+-                        } else {
+-                            /*按了其他按钮 暂时处理*/
+-                        }
+-                    });
+-                }
+-                /*5.失败*/
+-                else{
+-                    mui.toast('添加失败，请重试！');
+-                }
+-                window.addCarting = false;
+-            },
+-            error:function(){
+-                mui.toast('网络繁忙！');
+-                window.addCarting = false;
+-            }
+-        });
+-
+-    });
+-
+-});
+-
+-/*获取商品详情信息*/
+-var getProductDetailData = function(params,callback){
+-    $.ajax({
+-        type:'get',
+-        url:'/product/queryProductDetail',
+-        data:params,
+-        dataType:'json',
+-        success:function(data){
+-            setTimeout(function(){
+-                callback && callback(data);
+-            },500);
+-        }
+-    });
+-};
+Index: public/m/js/category.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- public/m/js/category.js	(revision 51d7c8fcfd963cde6230168934c7a998a9caa57e)
++++ public/m/js/category.js	(date 1554535889121)
+@@ -1,73 +1,0 @@
+-/*��ʼ������*/
+-mui('.lt_cateLeft').scroll({
+-    indicators:false
+-});
+-/*��ʼ�Ҳ����*/
+-var scrollRight = mui('.lt_cateRight').scroll({
+-    indicators:false
+-});
+-
+-/*
+- - ��Ⱦ��̬
+- + ������  ��Ҫ��ȡһ���������� ��Ⱦ��ҳ�浱��
+- + Ĭ��ѡ��һ������   ���س���һ�������Ӧ������  ��Ⱦ�������ࣨ�Ҳ����ݣ�
+- + ���һ�������ʱ��  ��Ҫȥ���ض�Ӧ�ķ�������   ��Ⱦ�������ࣨ�Ҳ����ݣ�
+- * */
+-$(function () {
+-    /*ҳ��*/
+-    getFirstCategoryData(function (data) {
+-        /*��ȡ�������� data*/
+-        /*��Ⱦһ������*/
+-        $('.lt_cateLeft').find('ul').html(template('firstCategory',data));
+-        /*Ĭ���Ѿ���ʾ���ǵ�һ������*/
+-        /*���ݵ�һ�������idȥ��Ⱦ��������*/
+-        getSecondCategoryData({
+-            id:data.rows[0].id /*��һ��һ�������id*/
+-        },function(data){
+-            /*��Ⱦ��������*/
+-            $('.lt_cateRight').find('ul').html(template('secondCategory',data));
+-        })
+-    });
+-    /*����*/
+-    $('.lt_cateLeft').on('tap','ul li',function(){
+-        /*�ı䵱ǰ��ʽ*/
+-        $('.lt_cateLeft').find('li').removeClass('now');
+-        $(this).addClass('now');
+-        /*ͨ��idȥ��ȡ�������������*/
+-        /*��ȡ��ǰ�����id*/
+-        getSecondCategoryData({
+-            id:$(this).data('id') /*��һ��һ�������id*/
+-        },function(data){
+-            /*��Ⱦ��������*/
+-            $('.lt_cateRight').find('ul').html(template('secondCategory',data));
+-            /*��ҪΨһ��0��λ��  ����*/
+-            scrollRight.scrollTo(0,0,100);
+-        })
+-    });
+-});
+-/*��ȡһ����������*/
+-var getFirstCategoryData = function (callback) {
+-    $.ajax({
+-        type: 'get',
+-        url: '/category/queryTopCategory',
+-        data: {},
+-        dataType: 'json',
+-        success: function (data) {
+-            /*����ȡ����֮�������*/
+-            callback && callback(data);
+-        }
+-    })
+-}
+-/*��ȡ�������������*/
+-var getSecondCategoryData = function(params,callback){
+-    $.ajax({
+-        type: 'get',
+-        url: '/category/querySecondCategory',
+-        data: params,
+-        dataType: 'json',
+-        success: function (data) {
+-            /*����ȡ����֮�������*/
+-            callback && callback(data);
+-        }
+-    });
+-}
+Index: public/m/js/searchList.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- public/m/js/searchList.js	(revision 51d7c8fcfd963cde6230168934c7a998a9caa57e)
++++ public/m/js/searchList.js	(date 1554535907511)
+@@ -1,171 +1,0 @@
+-$(function(){
+-    /*
+-     初始化渲染
+-     1.获取地址栏关键字
+-     2.通过关键字去后台获取和关键字相关的商品数据
+-     3.渲染商品列表
+-
+-     当前页搜索
+-     1.点击搜索按钮 获取到关键字
+-     2.通过关键字去后台获取和关键字相关的商品数据
+-     3.渲染商品列表
+-
+-     排序展示
+-     1.点击排序按钮 获取排序方式
+-     2.通过当前的关键字和排序方式去后台获取相关的商品数据
+-     3.渲染商品列表
+-
+-     下拉刷新
+-     1.当用户下拉页面
+-     2.通过关键字去后台重新获取和关键字相关的商品数据
+-     3.渲染商品列表
+-
+-     上拉加载
+-     1.当用户上拉页面
+-     2.通过关键字去后台获取和关键字相关的商品数据（而且是根据当前页面进行获取）
+-     3.渲染商品列表 当时是追加到页面当中
+-     * */
+-
+-    /*1.初始化渲染*/
+-    /*获取地址栏关键字*/
+-    var key = lt.getUrlParams().key || '';
+-    /*显示在搜索框中*/
+-    $('.search_input').val(key);
+-    /*当前渲染页面*/
+-    var currPage = 1;
+-
+-    /*4.优化渲染操作*/
+-    /* 加载时候   关键字 排序（key=value） 当前页  页面*/
+-    var render = function(callback){
+-        /*获取搜索框当中的按钮*/
+-        var key = $.trim($('.search_input').val());
+-        /*判断是否输入了内容*/
+-        if(!key){
+-            mui.toast('请输入关键字');
+-            return false;
+-        }
+-        /*获取需要排序的方式*/
+-        var type = $('[data-type].now').attr('data-type');
+-        var value = $('[data-type].now').find('span').hasClass('fa-angle-down')?2:1;
+-        var order = {};
+-        if(type){
+-            order[type] = value;
+-        }
+-        /*显示多少条*/
+-        var pageSize = 10;
+-
+-        /*去后台获取数据*/
+-        getProductListData($.extend({
+-            proName:key,
+-            page:currPage,
+-            pageSize:pageSize
+-        },order),function(data){
+-            /*渲染商品列表*/
+-            if(currPage == 1){
+-                $('.lt_product').html(template('productTpl',data));
+-            }else{
+-                $('.lt_product').append(template('productTpl',data));
+-            }
+-
+-            /*成功请求的其他业务*/
+-            callback && callback();
+-        });
+-    };
+-    render();
+-
+-    /*2.当前页搜索*/
+-    $('.search_btn').on('tap',function(){
+-        /*去掉排序*/
+-        $('[data-type].now').removeClass('now').find('span').removeClass('fa-angle-up').addClass('fa-angle-down');
+-        /*显示加载*/
+-        $('.lt_product').html('<div class="loading"><span class="mui-icon mui-icon-spinner"></span></div>');
+-        /*当前页码*/
+-        currPage = 1;
+-        /*渲染*/
+-        render();
+-    });
+-
+-    /*3.排序展示*/
+-    $('[data-type]').on('tap',function(){
+-        /*当前点击的元素*/
+-        var $this = $(this);
+-        /*换箭头*/
+-        if($this.hasClass('now')){
+-            var arrow = $(this).find('span');
+-            if(arrow.hasClass('fa-angle-down')){
+-                arrow.removeClass('fa-angle-down').addClass('fa-angle-up');
+-            }else{
+-                arrow.removeClass('fa-angle-up').addClass('fa-angle-down');
+-            }
+-        }else{
+-            /*给当前元素加上now*/
+-            $('[data-type].now').removeClass('now').find('span').removeClass('fa-angle-up').addClass('fa-angle-down');
+-            $this.addClass('now');
+-        }
+-        /*当前页码*/
+-        currPage = 1;
+-        /*渲染*/
+-        render();
+-    });
+-
+-    mui.init({
+-        /*4.下拉刷新*/
+-        pullRefresh : {
+-            container:".mui-scroll-wrapper",
+-            down : {
+-                callback :function(){
+-                    /*注意：下拉操作完成之后 业务 */
+-                    /*模拟一次向后台发送请求 响应之后的时间消耗*/
+-                    var that = this;/*这个是下拉组件对象  对象当中含有终止下拉操作的方法*/
+-                    /*当前页码*/
+-                    currPage = 1;
+-                    /*开发真实的业务*/
+-                    render(function(){
+-                        /*下拉效果隐藏*/
+-                        that.endPulldownToRefresh();
+-                    });
+-                }
+-            },
+-            /*5.上拉加载*/
+-            up : {
+-                callback:function(){
+-                    /*注意：上拉操作完成之后 业务 */
+-                    /*模拟一次向后台发送请求 响应之后的时间消耗*/
+-                    var that = this;/*这个是上拉组件对象  对象当中含有终止下拉操作的方法*/
+-                    setTimeout(function(){
+-                        /*上拉效果隐藏*/
+-                        /*可传参 如果传的是true 表示没有更多数据*/
+-                        that.endPullupToRefresh();
+-                    },1000);
+-
+-                    /*下一页*/
+-                    currPage ++;
+-                    /*开发真实的业务*/
+-                    render(function(){
+-                        /*上拉效果隐藏*/
+-                        /*可传参 如果传的是true 表示没有更多数据*/
+-                        that.endPullupToRefresh();
+-                    });
+-                }
+-            }
+-        }
+-    });
+-
+-});
+-
+-/*获取后台数据 商品列表数据*/
+-var getProductListData = function(prams,callback){
+-    $.ajax({
+-        type:'get',
+-        url:'/product/queryProduct',
+-        data:prams,
+-        dataType:'json',
+-        success:function(data){
+-            /*模拟一下加载时间*/
+-            setTimeout(function(){
+-                if(data.data.length == 0) mui.toast('没有相关商品');
+-                callback && callback(data);
+-            },1000);
+-        }
+-    });
+-}
+\ No newline at end of file
+Index: public/m/css/product.css
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- public/m/css/product.css	(revision 51d7c8fcfd963cde6230168934c7a998a9caa57e)
++++ public/m/css/product.css	(date 1554535858379)
+@@ -1,39 +1,0 @@
+-.lt_trade{
+-    position: absolute;
+-    left: 0;
+-    bottom: 0;
+-    width: 100%;
+-    height: 45px;
+-    line-height: 45px;
+-    padding: 6px 10px;
+-    background: #f5f5f5;
+-    border-top: 1px solid #ddd;
+-}
+-
+-.lt_item{
+-    padding: 10px;
+-    border-top: 1px solid #ddd;
+-    word-break: break-all;
+-}
+-.lt_item .old{
+-    color: #666;
+-    font-size: 12px;
+-}
+-.lt_item .now{
+-    color: red;
+-    font-size: 20px;
+-}
+-.lt_item .size{
+-    padding: 5px;
+-    background: #f5f5f5;
+-    border: 1px solid #ccc;
+-    line-height: 36px;
+-    font-size: 12px;
+-}
+-.lt_item .size.now{
+-    background: #069;
+-}
+-.lt_item .num{
+-    font-size: 12px;
+-    color: #666;
+-}
+\ No newline at end of file
+Index: public/m/css/category.css
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- public/m/css/category.css	(revision 51d7c8fcfd963cde6230168934c7a998a9caa57e)
++++ public/m/css/category.css	(date 1554535858278)
+@@ -1,62 +1,0 @@
+-.lt_cateLeft{
+-    width: 90px;
+-    height: 100%;
+-    overflow: hidden;
+-    float: left;
+-}
+-.lt_cateLeft ul{
+-    width: 100%;
+-    list-style: none;
+-    margin: 0;
+-    padding: 0;
+-}
+-.lt_cateLeft ul li {
+-    width: 100%;
+-    height: 50px;
+-    line-height: 50px;
+-    border-bottom: 1px solid #ccc;
+-    border-right: 1px solid #ccc;
+-    background: #f3f4f5;
+-}
+-.lt_cateLeft ul li:last-child{
+-    border-bottom: none;
+-}
+-.lt_cateLeft ul li a{
+-    display: block;
+-    width: 100%;
+-    height: 100%;
+-    text-align: center;
+-    color: #666;
+-}
+-.lt_cateLeft ul li.now{
+-    background: #fff;
+-    border-right-color: #fff;
+-}
+-
+-.lt_cateRight{
+-    height: 100%;
+-    overflow: hidden;
+-}
+-.lt_cateRight ul{
+-    list-style: none;
+-    margin: 0;
+-    padding: 0;
+-}
+-.lt_cateRight ul li{
+-    width: 33.3333%;
+-    float: left;
+-}
+-.lt_cateRight ul li a{
+-    display: block;
+-    width: 100%;
+-}
+-.lt_cateRight ul li a img{
+-    display: block;
+-    width: 62px;
+-    height: 62px;
+-    margin: 0 auto;
+-}
+-.lt_cateRight ul li a p{
+-    text-align: center;
+-    padding: 5px 0;
+-}
+\ No newline at end of file
+Index: public/m/css/searchList.css
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- public/m/css/searchList.css	(revision 51d7c8fcfd963cde6230168934c7a998a9caa57e)
++++ public/m/css/searchList.css	(date 1554535867898)
+@@ -1,46 +1,0 @@
+-/*search form*/
+-.lt_search{
+-    margin-top: 10px;
+-    padding: 0 10px;
+-}
+-.lt_search form{
+-    position: relative;
+-}
+-.lt_search form .search_input{
+-    background: #fff;
+-    border: 1px solid #069;
+-    text-align: left;
+-    font-size: 12px;
+-    margin-bottom: 10px;
+-}
+-.lt_search form .search_btn{
+-    position: absolute;
+-    right: 0;
+-    top: 0;
+-    width: 60px;
+-    height: 34px;
+-    background: #069;
+-    text-align: center;
+-    line-height: 34px;
+-    color: #fff;
+-    font-size: 12px;
+-    border-radius: 0 6px 6px 0;
+-}
+-
+-/*��������*/
+-.lt_order{
+-    height: 30px;
+-    line-height: 30px;
+-    background: #eee;
+-    padding: 0 10px;
+-}
+-.lt_order a{
+-    font-size: 12px;
+-    color: #333;
+-    float: left;
+-    width: 25%;
+-    text-align: center;
+-}
+-.lt_order a.now{
+-    color: darkorange;
+-}
+Index: public/m/css/common.css
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- public/m/css/common.css	(revision 51d7c8fcfd963cde6230168934c7a998a9caa57e)
++++ public/m/css/common.css	(date 1554535858329)
+@@ -1,166 +1,0 @@
+-/*reset css*/
+-/*common css*/
+-/*大容器*/
+-.lt_container{
+-    position: absolute;
+-    left: 0;
+-    top: 0;
+-    background: #fff;
+-    width: 100%;
+-    height: 100%;
+-    overflow: hidden;
+-}
+-/*顶部通栏*/
+-.lt_topBar{
+-    width: 100%;
+-    height: 45px;
+-    background: #069;
+-    position: absolute;
+-    left: 0;
+-    top: 0;
+-}
+-.lt_topBar h3{
+-    font-size: 18px;
+-    line-height: 45px;
+-    text-align: center;
+-    color: #fff;
+-    margin: 0;
+-    font-weight: normal;
+-}
+-.lt_topBar a{
+-    position: absolute;
+-    top: 0;
+-    width: 45px;
+-    height: 45px;
+-    text-align: center;
+-    line-height: 45px;
+-    color: #fff;
+-}
+-.lt_topBar .btn_left{
+-    left: 0;
+-}
+-.lt_topBar .btn_left .mui-icon{
+-    font-weight: bold;
+-}
+-.lt_topBar .btn_right{
+-    right: 0;
+-}
+-/*主体内容*/
+-.lt_content{
+-    width: 100%;
+-    height: 100%;
+-    padding-top: 45px;
+-    padding-bottom: 55px;
+-}
+-.lt_content .lt_wrapper{
+-    width: 100%;
+-    height: 100%;
+-    position: relative;
+-}
+-/*底部页签*/
+-.lt_tabBar{
+-    width: 100%;
+-    height: 55px;
+-    background: #069;
+-    position: absolute;
+-    left: 0;
+-    bottom: 0;
+-}
+-.lt_tabBar ul{
+-    list-style: none;
+-    margin: 0;
+-    padding: 0;
+-}
+-.lt_tabBar ul li{
+-    width: 25%;
+-    float: left;
+-    text-align: center;
+-    padding-top: 10px;
+-}
+-.lt_tabBar ul li.now a{
+-    color: darkorange;
+-}
+-.lt_tabBar ul li.now a p{
+-    color: darkorange;
+-}
+-.lt_tabBar ul li a{
+-    color: #fff;
+-}
+-.lt_tabBar ul li a p{
+-    color: #fff;
+-    font-size: 12px;
+-    padding-bottom: 0;
+-    margin-bottom: 0;
+-}
+-
+-
+-/*model css*/
+-
+-/*商品*/
+-.lt_product{
+-    padding: 0 10px;
+-    background: #fff;
+-}
+-.lt_product .item{
+-    width: 48%;
+-    float: left;
+-    text-align: center;
+-    box-shadow: 0 0 5px #ccc;
+-    margin-top: 10px;
+-    padding: 10px 5px;
+-}
+-/*even 偶数  odd 奇数*/
+-.lt_product .item:nth-child(even){
+-    margin-left: 4%;
+-}
+-.lt_product .item img{
+-    width: 100%;
+-    display: block;
+-    margin-bottom:5px;
+-}
+-.lt_product .mui-ellipsis-2{
+-    height: 41px;
+-}
+-.lt_product .item p{
+-    font-size: 12px;
+-}
+-.lt_product .item p span:first-child{
+-    color: red;
+-}
+-.lt_product .item p span:last-child{
+-    color: grey;
+-    text-decoration: line-through;
+-}
+-
+-/*加载中效果*/
+-.loading{
+-    min-height: 250px;
+-    width: 100%;
+-    text-align: center;
+-    line-height: 250px;
+-}
+-.loading .mui-icon{
+-    color: #069;
+-    animation: rotateLoading 1s infinite;
+-}
+-@keyframes rotateLoading {
+-    from{
+-        transform: rotate(0deg);
+-        -webkit-transform: rotate(0deg);
+-    }
+-    to{
+-        transform: rotate(360deg);
+-        -webkit-transform: rotate(360deg);
+-    }
+-}
+-/*webkit兼容*/
+-@-webkit-keyframes rotateLoading {
+-    from{
+-        transform: rotate(0deg);
+-        -webkit-transform: rotate(0deg);
+-    }
+-    to{
+-        transform: rotate(360deg);
+-        -webkit-transform: rotate(360deg);
+-    }
+-}
+Index: public/m/css/search.css
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- public/m/css/search.css	(revision 51d7c8fcfd963cde6230168934c7a998a9caa57e)
++++ public/m/css/search.css	(date 1554535865304)
+@@ -1,57 +1,0 @@
+-/*search form*/
+-.lt_search{
+-    margin-top: 10px;
+-    padding: 0 10px;
+-}
+-.lt_search form{
+-    position: relative;
+-}
+-.lt_search form .search_input{
+-    background: #fff;
+-    border: 1px solid #069;
+-    text-align: left;
+-    font-size: 12px;
+-}
+-.lt_search form .search_btn{
+-    position: absolute;
+-    right: 0;
+-    top: 0;
+-    width: 60px;
+-    height: 34px;
+-    background: #069;
+-    text-align: center;
+-    line-height: 34px;
+-    color: #fff;
+-    font-size: 12px;
+-    border-radius: 0 6px 6px 0;
+-}
+-
+-/* search history */
+-.lt_history{
+-    font-size: 12px;
+-    padding: 0 10px;
+-    color: #999;
+-    padding-bottom: 50px;
+-}
+-.lt_history .fa-trash{
+-    height: 21px;
+-    line-height: 21px;
+-}
+-.lt_history ul{
+-    list-style: none;
+-    margin: 0;
+-    padding: 0;
+-    border-bottom: 1px dashed #ccc;
+-    margin-top: 10px;
+-}
+-.lt_history ul li{
+-    border: 1px dashed #ccc;
+-    height: 30px;
+-    line-height: 30px;
+-    border-bottom: none;
+-    padding-left: 10px;
+-}
+-.lt_history ul li .mui-icon-closeempty{
+-    float: right;
+-    margin-top: 2px;
+-}
+\ No newline at end of file
+Index: public/m/css/index.css
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- public/m/css/index.css	(revision 51d7c8fcfd963cde6230168934c7a998a9caa57e)
++++ public/m/css/index.css	(date 1554535858362)
+@@ -1,13 +1,0 @@
+-/*������*/
+-.lt_nav{
+-    margin-top: 10px;
+-    padding: 0 10px;
+-}
+-.lt_nav a{
+-    float: left;
+-    width: 33.3333%;
+-}
+-.lt_nav a img{
+-    width: 100%;
+-    display: block;
+-}
+\ No newline at end of file
+Index: public/m/css/user.css
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- public/m/css/user.css	(revision 51d7c8fcfd963cde6230168934c7a998a9caa57e)
++++ public/m/css/user.css	(date 1554535870856)
+@@ -1,89 +1,0 @@
+-.p10{
+-    padding: 10px;
+-}
+-/*cart*/
+-.lt_proImg{
+-    width: 60px;
+-    height: 60px;
+-    float:left;
+-}
+-.lt_proImg img{
+-    width: 100%;
+-    height: 100%;
+-    display: block;
+-}
+-.lt_proInfo{
+-    overflow: hidden;
+-    padding: 0 10px;
+-}
+-.lt_proInfo input{
+-    position: absolute;
+-    left: 0;
+-    bottom: 2px;
+-}
+-.lt_proInfo .name{
+-    color: #333;
+-    margin-bottom: 5px;
+-}
+-.lt_proInfo .price{
+-    color: red;
+-}
+-.lt_proInfo .oldPrice{
+-    text-decoration: line-through;
+-    font-size: 12px;
+-}
+-.lt_proInfo .num{
+-    float: right;
+-}
+-
+-.lt_cart{
+-    position: absolute;
+-    left: 0;
+-    bottom: 55px;
+-    height: 30px;
+-    line-height: 30px;
+-    padding: 0 10px;
+-    border-top: 1px solid #ccc;
+-    width: 100%;
+-    background: #f5f5f5;
+-    z-index: 997;
+-}
+-.lt_cart > div{
+-    font-size: 12px;
+-    color: red;
+-    font-weight: bold;
+-}
+-.lt_cart > a{
+-    position: absolute;
+-    background: red;
+-    right: 0;
+-    top: 0;
+-    padding: 0 15px;
+-    font-size: 12px;
+-    color: #fff;
+-}
+-.lt_content_cart{
+-    padding-bottom: 85px;
+-}
+-
+-.lt_cart_edit{
+-    text-align: left;
+-}
+-.lt_cart_edit strong{
+-    display: inline-block;
+-    width: 45px;
+-}
+-.lt_cart_edit span{
+-    display: inline-block;
+-    background: #f5f5f5;
+-    border: 1px solid #ddd;
+-    margin-right: 3px;
+-    margin-bottom: 5px;
+-    padding: 0 5px;
+-}
+-.lt_cart_edit span.now{
+-    background: #069;
+-}
+-.lt_cart_edit .mui-numbox{
+-    height: 26px;
+-}
+\ No newline at end of file
+Index: public/m/category.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- public/m/category.html	(revision 51d7c8fcfd963cde6230168934c7a998a9caa57e)
++++ public/m/category.html	(date 1554535927013)
+@@ -11,51 +11,7 @@
+     <link rel="stylesheet" href="css/category.css"/>
+ </head>
+ <body>
+-<div class="lt_container">
+-    <header class="lt_topBar">
+-        <a class="btn_left" href="javascript:history.back();"><span class="mui-icon mui-icon-arrowleft"></span></a>
+-        <h3>乐淘分类</h3>
+-        <a class="btn_right" href="search.html"><span class="fa fa-search"></span></a>
+-    </header>
+-    <div class="lt_content">
+-        <div class="lt_wrapper">
+-            <!--左侧栏-->
+-            <div class="lt_cateLeft">
+-                <ul>
+-                    <!--动态渲染-->
+-                </ul>
+-            </div>
+-            <!--右内容-->
+-            <div class="lt_cateRight">
+-                <ul class="mui-clearfix">
+-                    <!--动态渲染-->
+-                </ul>
+-            </div>
+-        </div>
+-    </div>
+-    <footer class="lt_tabBar">
+-        <ul>
+-            <li><a href="index.html"><span class="fa fa-home"></span><p>首页</p></a></li>
+-            <li class="now"><a href="category.html"><span class="fa fa-bars"></span><p>分类</p></a></li>
+-            <li><a href="cart.html"><span class="fa fa-shopping-cart"></span><p>购物车</p></a></li>
+-            <li><a href="user/index.html"><span class="fa fa-user"></span><p>会员中心</p></a></li>
+-        </ul>
+-    </footer>
+-</div>
+-<script type="text/template" id="firstCategory">
+-    <% for(var i = 0 ; i < rows.length ; i ++){ %>
+-    <li data-id="<%=rows[i].id%>" class="<%=i==0?'now':'' %>"><a href="javascript:;"><%=rows[i].categoryName%></a></li>
+-    <% } %>
+-</script>
+-<script type="text/template" id="secondCategory">
+-    <%if(rows.length == 0){%>
+-        <p style="padding: 10px">暂时没有分类数据</p>
+-    <%}else{%>
+-        <% for(var i = 0 ; i < rows.length ; i ++){ %>
+-            <li><a href="#"><img src="<%=rows[i].brandLogo%>" onerror="this.src = 'images/none.jpg' " alt=""/><p><%=rows[i].brandName%></p></a></li>
+-        <% } %>
+-    <%}%>
+-</script>
++
+ <script src="assets/mui/js/mui.js"></script>
+ <script src="assets/zepto/zepto.min.js"></script>
+ <script src="assets/artTemplate/template-native.js"></script>
+Index: public/m/search.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- public/m/search.html	(revision 51d7c8fcfd963cde6230168934c7a998a9caa57e)
++++ public/m/search.html	(date 1554535954941)
+@@ -11,56 +11,7 @@
+     <link rel="stylesheet" href="css/search.css"/>
+ </head>
+ <body>
+-<div class="lt_container">
+-    <header class="lt_topBar">
+-        <a class="btn_left" href="javascript:history.back();"><span class="mui-icon mui-icon-arrowleft"></span></a>
+-        <h3>搜索中心</h3>
+-    </header>
+-    <div class="lt_content">
+-        <div class="lt_wrapper">
+-            <div class="mui-scroll-wrapper">
+-                <div class="mui-scroll">
+-                    <!--搜索表单-->
+-                    <div class="lt_search">
+-                        <form action="javascript:;">
+-                            <input class="search_input" type="search" placeholder="请输入搜索关键字"/>
+-                            <a class="search_btn" href="javascript:;">搜索</a>
+-                        </form>
+-                    </div>
+-                    <!--搜索历史-->
+-                    <div class="lt_history">
+-                       <!--动态渲染-->
+-                    </div>
+-                </div>
+-            </div>
+-        </div>
+-    </div>
+-    <footer class="lt_tabBar">
+-        <ul>
+-            <li><a href="index.html"><span class="fa fa-home"></span><p>首页</p></a></li>
+-            <li><a href="category.html"><span class="fa fa-bars"></span><p>分类</p></a></li>
+-            <li><a href="cart.html"><span class="fa fa-shopping-cart"></span><p>购物车</p></a></li>
+-            <li><a href="user/index.html"><span class="fa fa-user"></span><p>会员中心</p></a></li>
+-        </ul>
+-    </footer>
+-</div>
+-<script type="text/template" id="historyTpl">
+-    <div class="mui-clearfix">
+-        <% if(list.length > 0){ %>
+-            <span class="mui-pull-left">搜索历史</span>
+-            <span class="mui-pull-right fa fa-trash">清空记录</span>
+-        <% }else{ %>
+-            <span class="mui-pull-left">没有搜索历史记录</span>
+-        <% } %>
+-    </div>
+-    <% if(list.length > 0){ %>
+-        <ul>
+-            <% for(var i = list.length-1 ; i >= 0 ; i --){ %>
+-            <li><a href="searchList.html?key=<%=list[i]%>"><%=list[i]%></a><span data-index="<%=i%>" class="mui-icon mui-icon-closeempty"></span></li>
+-            <% } %>
+-        </ul>
+-    <% } %>
+-</script>
++
+ <script src="assets/mui/js/mui.js"></script>
+ <script src="assets/zepto/zepto.min.js"></script>
+ <script src="assets/artTemplate/template-native.js"></script>
+Index: public/m/index.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- public/m/index.html	(revision 51d7c8fcfd963cde6230168934c7a998a9caa57e)
++++ public/m/index.html	(date 1554535858398)
+@@ -11,85 +11,7 @@
+     <link rel="stylesheet" href="css/index.css"/>
+ </head>
+ <body>
+-    <div class="lt_container">
+-        <header class="lt_topBar">
+-            <h3>乐淘云购</h3>
+-            <a class="btn_right" href="search.html"><span class="fa fa-search"></span></a>
+-        </header>
+-        <div class="lt_content">
+-            <div class="lt_wrapper">
+-                <div class="mui-scroll-wrapper">
+-                    <div class="mui-scroll">
+-                        <!--轮播图-->
+-                        <div class="mui-slider">
+-                            <div class="mui-slider-group mui-slider-loop">
+-                                <div class="mui-slider-item mui-slider-item-duplicate"><a href="#"><img src="images/banner6.png" /></a></div>
+-                                <div class="mui-slider-item mui-active"><a href="#"><img src="images/banner1.png" /></a></div>
+-                                <div class="mui-slider-item"><a href="#"><img src="images/banner2.png" /></a></div>
+-                                <div class="mui-slider-item"><a href="#"><img src="images/banner3.png" /></a></div>
+-                                <div class="mui-slider-item"><a href="#"><img src="images/banner4.png" /></a></div>
+-                                <div class="mui-slider-item"><a href="#"><img src="images/banner5.png" /></a></div>
+-                                <div class="mui-slider-item"><a href="#"><img src="images/banner6.png" /></a></div>
+-                                <div class="mui-slider-item mui-slider-item-duplicate"><a href="#"><img src="images/banner1.png" /></a></div>
+-                            </div>
+-                            <div class="mui-slider-indicator">
+-                                <div class="mui-indicator mui-active"></div>
+-                                <div class="mui-indicator"></div>
+-                                <div class="mui-indicator"></div>
+-                                <div class="mui-indicator"></div>
+-                                <div class="mui-indicator"></div>
+-                                <div class="mui-indicator"></div>
+-                            </div>
+-                        </div>
+-                        <!--导航栏-->
+-                        <nav class="lt_nav">
+-                            <a href="#"><img src="images/nav1.png" alt=""/></a>
+-                            <a href="#"><img src="images/nav2.png" alt=""/></a>
+-                            <a href="#"><img src="images/nav3.png" alt=""/></a>
+-                            <a href="#"><img src="images/nav4.png" alt=""/></a>
+-                            <a href="#"><img src="images/nav5.png" alt=""/></a>
+-                            <a href="#"><img src="images/nav6.png" alt=""/></a>
+-                        </nav>
+-                        <!--商品区块-->
+-                        <div class="lt_product">
+-                            <a class="item" href="#">
+-                                <img src="images/product.jpg" alt=""/>
+-                                <span class="mui-ellipsis-2 mui-text-left">adidas阿迪达斯 男式 场下休闲篮球鞋S83700 </span>
+-                                <p><span>&yen;560.00</span> <span>&yen;560.00</span></p>
+-                                <button class="mui-btn-blue">立即购买</button>
+-                            </a>
+-                            <a class="item" href="#">
+-                                <img src="images/product.jpg" alt=""/>
+-                                <span class="mui-ellipsis-2 mui-text-left">adidas阿迪达斯 男式 场下休闲篮球鞋S83700 </span>
+-                                <p><span>&yen;560.00</span> <span>&yen;560.00</span></p>
+-                                <button class="mui-btn-blue">立即购买</button>
+-                            </a>
+-                            <a class="item" href="#">
+-                                <img src="images/product.jpg" alt=""/>
+-                                <span class="mui-ellipsis-2 mui-text-left">adidas阿迪达斯 男式 场下休闲篮球鞋S83700 </span>
+-                                <p><span>&yen;560.00</span> <span>&yen;560.00</span></p>
+-                                <button class="mui-btn-blue">立即购买</button>
+-                            </a>
+-                            <a class="item" href="#">
+-                                <img src="images/product.jpg" alt=""/>
+-                                <span class="mui-ellipsis-2 mui-text-left">adidas阿迪达斯 男式 场下休闲篮球鞋S83700 </span>
+-                                <p><span>&yen;560.00</span> <span>&yen;560.00</span></p>
+-                                <button class="mui-btn-blue">立即购买</button>
+-                            </a>
+-                        </div>
+-                    </div>
+-                </div>
+-            </div>
+-        </div>
+-        <footer class="lt_tabBar">
+-            <ul>
+-                <li class="now"><a href="index.html"><span class="fa fa-home"></span><p>首页</p></a></li>
+-                <li><a href="category.html"><span class="fa fa-bars"></span><p>分类</p></a></li>
+-                <li><a href="cart.html"><span class="fa fa-shopping-cart"></span><p>购物车</p></a></li>
+-                <li><a href="user/index.html"><span class="fa fa-user"></span><p>会员中心</p></a></li>
+-            </ul>
+-        </footer>
+-    </div>
++
+ <script src="assets/mui/js/mui.js"></script>
+ <script src="js/common.js"></script>
+ <script src="js/index.js"></script>
