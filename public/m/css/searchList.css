@@ -1,0 +1,90 @@
+.ct_search{
+    width: 100%;
+    padding: 10px;
+}
+.ct_search input{
+    padding: 0 0 0 10px;
+    width: 100%;
+    text-align: left;
+    font-size: 12px;
+    border: 1px solid #006699;
+    background-color: #fff;
+    position: relative;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+.ct_search a{
+    width: 60px;
+    height: 34px;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    background-color: #006699;
+    font-size: 14px;
+    color: #fff;
+    line-height: 34px;
+    text-align: center;
+}
+.ct_order{
+    width: 100%;
+    background-color: #efeff4;
+    height: 30px;
+}
+.ct_order a{
+    float: left;
+    width: 25%;
+    height: 30px;
+    font-size: 12px;
+    line-height: 30px;
+    color: #333;
+    text-align: center;
+}
+.ct_order a.now{
+    color: orange;
+}
+.ct_product{
+    width: 100%;
+    padding: 0 10px;
+}
+.ct_product .pro_item{
+    width: 48%;
+    float: left;
+}
+.ct_product .pro_item:nth-child(2n){
+    margin-left:4%;
+}
+.ct_product .pro_item .pro_item_box{
+    margin-top: 10px;
+    width: 100%;
+    min-height: 200px;
+    box-shadow: 0 0 3px #ddd;
+    display: block;
+    padding-bottom: 10px;
+}
+.ct_product .pro_item .pro_item_box img{
+    width: 100%;
+}
+.ct_product .pro_item .pro_item_box p:first-of-type{
+    padding: 0 10px;
+    color: blue;
+}
+.ct_product .pro_item .pro_item_box p:last-of-type{
+    text-align: center;
+}
+.ct_product .pro_item .pro_item_box .nowPrice{
+    font-size: 12px;
+    color: red;
+}
+.ct_product .pro_item .pro_item_box .oldPrice{
+    font-size: 12px;
+    color: #ddd;
+    text-decoration: line-through;
+}
+.ct_product .pro_item .pro_item_box .button{
+    display: block;
+    margin: -5px auto;
+    background-color: #6696ff;
+    color: #fff;
+}
