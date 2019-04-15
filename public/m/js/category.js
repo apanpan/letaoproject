@@ -41,7 +41,7 @@ var getSecondCategoryData = function (params,callback) {
         data:params,
         dataType:'json',
         success:function (data) {
-            console.log(data);
+            // console.log(data);
             callback && callback(data);
         }
     });
